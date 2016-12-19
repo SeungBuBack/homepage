@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Qna">
+
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />	
+	<typeAlias alias="qna" type="com.nonage.dto.QnaVO" />
+	
+	<select id="listQna" parameterClass="str" resultClass="qna">
+		select * from qna where id=#id# order by qseq desc
+	</select>
+	
+	<select id="getQna" parameterClass="int" resultClass="qna">
+		select * from qna where qseq=#seq#
+	</select>
+	
+	<insert id="insertqna" parameterClass="qna">
+		insert into qna (qseq, subject,content, id) values(qna_seq.nextval, #subject#, #content#, #id#)
+	</insert>
+	
+	<select id="listAllQna" resultClass="qna">
+		select * from qna order by indate desc
+	</select>
+	
+	<update id="updateQna" parameterClass="qna" >
+		update qna set reply=#reply#, rep='2' where qseq=#qseq#
+	</update>
+</sqlMap>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+ 
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap namespace="Product">
+
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="product" type="com.nonage.dto.ProductVO" />
+
+	<select id="listNewProduct" resultClass="product">
+		select * from
+		new_pro_view 
+	</select>
+
+	<select id="listBestProduct" resultClass="product">
+		select * from
+		best_pro_view
+	</select>
+
+	<select id="getProduct" parameterClass="str" resultClass="product">
+		select
+		* from product where pseq=#pseq#
+	</select>
+
+	<select id="listKindProduct" parameterClass="str" resultClass="product">
+		select * from product where kind=#kind#
+	</select>
+
+	<select id="totalRecord" parameterClass="str" resultClass="int">
+		select count(*) from product where name like '%'||#name#||'%'
+	</select>
+
+	<select id="listProduct" parameterClass="str" resultClass="product">
+		select pseq, indate, name, price1, price2, useyn, bestyn
+		from product
+		where name like '%'||#name#||'%' order by pseq desc
+	</select>
+
+	<update id="insertProduct" parameterClass="product">
+		insert into product
+		(pseq, kind, name, price1, price2, price3, content, image)
+		values(product_seq.nextval, #kind#,#name#,#price1#, #price2#,#price3#,
+		#content#,#image#)
+	</update>
+
+	<update id="updateProduct" parameterClass="product">
+		update product set
+		kind=#kind#, useyn=#useyn#, name=#name#, price1=#price1#, price2=#price2#, price3=#price3#, content=#content#,
+		image=#image#, bestyn=#bestyn#
+		where pseq=#pseq#
+	</update>
+
+</sqlMap>

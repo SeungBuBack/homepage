@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Order">
+
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="cart" type="com.nonage.dto.CartVO" />
+	<typeAlias alias="order" type="com.nonage.dto.OrderVO" />
+	
+	<insert id="insertOrder" parameterClass="str" >
+		insert into orders(oseq, id) values(orders_seq.nextval, #id#)
+	</insert>	
+	
+	<select id="selectMaxOseq" resultClass="int">
+		select max(oseq) from orders
+	</select>	
+	
+	<insert id="insertOrderDetail" parameterClass="order" >
+		insert into order_detail(odseq, oseq,pseq, quantity)
+		 values(order_detail_seq.nextval,#oseq#, #pseq#, #quantity#)
+	</insert>
+	
+	<update id="updateCartResult" parameterClass="int">
+		update cart set result=2 where cseq=#cseq#
+	</update>
+	
+	<select id="listOrderById" parameterClass="order" resultClass="order">
+		select * from order_view where id=#id# and result like '%'||#result#||'%' and oseq=#oseq#
+	</select>
+	
+	<select id="selectSeqOrderIng" parameterClass="str" resultClass="int">
+		select distinct oseq from order_view where id=#id# and result='1' order by oseq desc
+	</select>
+
+	<select id="selectSeqOrderTotal" parameterClass="str" resultClass="int">
+		select distinct oseq from order_view where id=#id# order by oseq desc
+	</select>
+	
+	<select id="listOrder" parameterClass="str" resultClass="order">
+		select * from order_view where mname like '%'||#mname#||'%' order by result, oseq desc
+	</select>
+	
+	<update id="updateOrderResult" parameterClass="str">
+		update order_detail set result='2' where odseq=#oseq#
+	</update>
+</sqlMap>

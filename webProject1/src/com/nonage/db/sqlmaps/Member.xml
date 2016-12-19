@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+ 
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap namespace="Member">
+
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="product" type="com.nonage.dto.ProductVO" />
+	<typeAlias alias="member" type="com.nonage.dto.MemberVO" />
+	
+	<select id="confirmID" parameterClass="str" resultClass="member">
+		select * from member where id=#userid#
+	</select>
+	
+	<select id="getMember" parameterClass="str" resultClass="member">
+		select * from member where id=#id#
+	</select>
+	
+	<insert id="insertMember" parameterClass="member" >
+		insert into member(id, pwd, name, email,zip_num,address, phone) 
+		values(#id#, #pwd#, #name#,#email#, #zipNum#,#address#, #phone#)
+	</insert>
+	
+	<select id="listMember" parameterClass="str" resultClass="member">
+		select * from member where name like '%'||#name#||'%' order by indate desc
+	</select>
+
+</sqlMap>

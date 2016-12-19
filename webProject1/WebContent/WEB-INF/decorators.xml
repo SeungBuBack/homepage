@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<decorators defaultdir="/">	
+	<decorator name="main" page="page_decorator.jsp">
+		<pattern>/</pattern>
+	</decorator>
+	<decorator name="admin" page="admin_decorator.jsp">
+		<pattern>/admin/*.do</pattern>
+	</decorator>
+	
+
+
+
+	<excludes>
+		<pattern>/findZipNum.do*</pattern>
+		<pattern>/idCheckForm.do*</pattern>	
+		<pattern>/admin/adminLoginForm.do</pattern>	
+	</excludes>
+
+</decorators>

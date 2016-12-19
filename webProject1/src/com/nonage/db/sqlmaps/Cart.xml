@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Cart">
+
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="cart" type="com.nonage.dto.CartVO" />
+	
+	<insert id="insertCart" parameterClass="cart" >
+		insert into cart(cseq,id, pseq, quantity)
+				values(cart_seq.nextval,#id#,#pseq#,#quantity#)
+	</insert>	
+	
+	<select id="listCart" parameterClass="str" resultClass="cart">
+		select * from cart_view where id=#id# order by cseq desc
+	</select>
+	
+	<select id="getCart" parameterClass="int" resultClass="cart">
+		select * from cart_view where cseq=#cseq# 
+	</select>
+	
+	<delete id="deleteCart" parameterClass="int">
+		delete from cart where cseq=#cseq#
+	</delete>
+	
+</sqlMap>
